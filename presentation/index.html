@@ -4,13 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>S.O.L.I.D. Design Principles</title>
-
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
-
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<title>SOLID Design Principles</title>
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
@@ -75,6 +69,14 @@
 			.reveal ol ul li {
 				font-size: 0.8em;
 			}
+			
+			.reveal ul > li {
+				margin-bottom: 20px;
+			}
+			
+			.reveal li > small {
+				display: block;
+			}
             
             .fragment.hide-after.visible:not(.current-fragment) {
                 display: none;
@@ -93,6 +95,53 @@
                 opacity: 1;
                 transform: none;
             }
+			
+			
+			.reveal .slides section .fragment.highlight-em {
+                opacity: 1;
+    visibility: visible;
+            }
+			
+			.reveal .slides section .fragment.highlight-em.visible:not(.current-fragment) {
+                font-weight: normal;
+				color: inherit;
+            }
+			
+			.reveal .slides section .fragment.highlight-em.visible {
+                font-weight: bold;
+            }
+			
+			.reveal .slides section .fragment.invisible-before {
+				opacity: 0;
+			}
+			.reveal .slides section .fragment.invisible-before.visible {
+				opacity: 1;
+			}
+			.reveal .slides section .fragment.invisible-before.visible:not(.current-fragment) {
+				color: #ababab;
+				font-size: 0.8em;
+			}
+			
+			
+			
+			.reveal blockquote {
+				
+			}
+			
+			.reveal blockquote small {
+				vertical-align: inherit;
+				text-align: right;
+				padding-right: 10px;
+				width: 100%;
+			}
+			
+			.reveal h2 small {
+				display: block;
+				font-size: 0.8em;
+			}
+			
+			
+			
 		</style>
 	
 		<div class="reveal">
@@ -100,329 +149,248 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>Web Application Security</h1>
-					<h2 style="margin-left: -260px;">
-						<span class="sub-header">Part 1</span>
-						<span class="sub-header-separator"> | </span>
-						XSS and CSRF
-					</h2>
+					<h1>SOLID</h1>
+					<h2>Design Principles</h2>
 				</section>
-
+				
 				<section>
 					<section>
 						<h2>
-							<span class="sub-header">1.0 </span>
-							<span class="sub-header-separator"> | </span>
-							XSS
-						</h2>
-						
-						<blockquote>
-							&ldquo;Cross-Site Scripting (XSS) attacks are a type of injection, in which malicious
-							scripts are injected into otherwise benign and trusted web sites.&rdquo;
-							<br/>OWASP
-						</blockquote>
-					</section>
-					
-					<section>
-						<h2>
-							<span class="sub-header">1.1 </span>
-							<span class="sub-header-separator"> | </span>
-							Types of XSS
-						</h2>
-						
-						<ol>
-							<li class="fragment">
-								<span>Server XSS</span>
-								<br/>
-								<small>Data comes directly from the server onto the page</small>
-							</li>
-							
-							<li class="fragment">
-								<span>Client XSS</span>
-								<br/>
-								<small>Data comes from JavaScript which has manipulated the page</small>
-							</li>
-						</ol>
-					</section>
-					
-					<section>
-						<h2>
-							<span class="sub-header">1.2 </span>
-							<span class="sub-header-separator"> | </span>
-							Demo
-						</h2>
-						
-						<p>
-							<a href="http://unnamed-bookstore.com:62331/" target="_blank">Bookstore</a>
-						</p>
-					</section>
-					
-					<section>
-						<h2>
-							<span class="sub-header">1.3 </span>
-							<span class="sub-header-separator"> | </span>
-							Scripts
-						</h2>
-						
-						<pre class="fragment hide-after"><code class="hljs" data-trim contenteditable>
-<h1>
-  I love this book
-</h1>
-						</code></pre>
-						
-						<pre class="fragment hide-after"><code class="hljs" data-trim contenteditable>
-<h1 style="font-size: 3em; color: red;">
-  <marquee scrollamount="20">I REALLY love this book</marquee>
-</h1>
-						</code></pre>
-
-                        <pre class="fragment hide-after"><code class="hljs" data-trim contenteditable>
-<style>
-    div.navbar {
-        background-color: red;
-    }
-</style>
-
-Red navbar
-						</code></pre>
-
-						<pre class="fragment hide-after"><code class="hljs" data-trim contenteditable>
-&lt;script&gt;
-  document.getElementsByTagName('img')[0].src =                     'http://s.quickmeme.com/img/b1/b136b23a3922791ba4cf862e11360f1c8ae3df0f09b8c9ccd57589dc089835d2.jpg';
-&lt;/script&gt;
-
-CATS!
-						</code></pre>
-						
-						<pre class="fragment"><code class="hljs" data-trim contenteditable>
-&lt;script&gt;
-  var cookies = document.cookie;
-  
-  console.log(cookies);
-  alert('Found cookies: \r\n' + cookies + '\r\nNow I could post this value to some other server...');
-&lt;/script&gt;
-
-Yummy cookies
-						</code></pre>
-					</section>
-					
-                    <section>
-						<h2>
-							<span class="sub-header">1.4 </span>
-							<span class="sub-header-separator"> | </span>
-							Implications
+							Overview
 						</h2>
 						
 						<ul>
 							<li class="fragment">
-								Allows HTML to be rendered, overriding styles
+								<strong>SOLID</strong> is an acronym for the first five principles named by Robert C. Martin (aka Uncle Bob)
 							</li>
 							<li class="fragment">
-								Website can be defaced
-							</li>
-							<li class="fragment">
-								Could leave website vulnerable to session hijacking
-							</li>
-                            <li class="fragment">
-								Exposes users of your site to browser/application exploits 
+								They aim to make it more likely for a developer to create a system that is easy to maintain and extend over time 
 							</li>
 						</ul>
-                        
 					</section>
-                    
+					
+					<section>
+						<style>
+						.minor-abb {
+							display: inline-block; width: 50px; text-align:left
+						}
+						</style>
+						
+						<span class="fragment highlight-em highlight-red" data-fragment-index="1">
+							<strong>S</strong>
+							<span class="fragment minor-abb highlight-em highlight-red invisible-before" data-fragment-index="1">RP</span>
+						</span>
+						<br />
+						<span class="fragment highlight-em highlight-red" data-fragment-index="2">
+							<strong>O</strong>
+							<span class="fragment minor-abb highlight-em highlight-red invisible-before" data-fragment-index="2">CP</span>
+						</span>
+						<br />
+						<span class="fragment highlight-em highlight-red" data-fragment-index="3">
+							<strong>L</strong>
+							<span class="fragment minor-abb highlight-em highlight-red invisible-before" data-fragment-index="3">SP</span>
+						</span>
+						<br />
+						<span class="fragment highlight-em highlight-red" data-fragment-index="4">
+							<strong>I</strong>
+							<span class="fragment minor-abb highlight-em highlight-red invisible-before" data-fragment-index="4">SP</span>
+						</span>
+						<br />
+						<span class="fragment highlight-em highlight-red" data-fragment-index="5">
+							<strong>D</strong>
+							<span class="fragment minor-abb highlight-em highlight-red invisible-before" data-fragment-index="5">IP</span>
+						</span>
+						<br />
+						<br />
+						<span style="font-size: 1.3em;" class="fragment">
+							SRPOCPLSPISPDIP Principles
+						</span>
+					</section>
+				</section>
+				
+				<!-- SRP -->
+				<section>
 					<section>
 						<h2>
-							<span class="sub-header">1.5 </span>
-							<span class="sub-header-separator"> | </span>
-							Prevention
+							&ldquo; S &rdquo;
+							<small class="fragment">
+								Single Responsibility Principle
+							</small>
 						</h2>
 						
-						<ol>
-							<li class="fragment">
-								Sanitize markup if HTML input is required
-							</li>
-							<li class="fragment">
-								Encode all untrusted output
-								<ul>
-									<li>Don't encode output yourself - use a library!</li>
-								</ul>
-							</li>
-							<li class="fragment">
-								For &ldquo;<em>defense-in-depth</em>&rdquo;
-								<ul>
-									<li class="fragment">Content-Security-Policy</li>
-									<li class="fragment">Correct content-types</li>
-									<li class="fragment">X-XSS-Protection header</li>
-									<li class="fragment">Marking cookies as HTTP only</li>
-								</ul>
-							</li>
-						</ol>
+						<blockquote class="fragment hide-after">
+							A class should have only a single responsibility, and that
+							responsibility should be entirely encapsulated by the class
+						</blockquote>
 						
-						<div class="fragment" style="font-size: 0.75em; text-align: left;">
-							<span>Useful links</span>
-							<br />
-							<a href="https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet" target="_blank">OWASP XSS prevention cheat sheet</a>
+						<blockquote class="fragment hide-after">
+							&ldquo;A class should have only one reason to change&rdquo;
 							<br/>
-							<a href="https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet" target="_blank">OWASP XSS evasion cheat sheet</a>
-						</div>
+							<small>Robert C. Martin</small>
+						</blockquote>
 						
-						  <!-- http://lockmedown.com/preventing-xss-in-asp-net-made-easy/ -->
+						<p class="fragment">
+							<!-- TODO: Maybe include apex example?-->
+							<a target="_blank" href="http://git.dev.ahc/blue/soa-scheduling/blob/966561bcccd5e1f96685ae9335942237101a2281/src/Ahc.Blue.Rotas.Notifications/Handlers/ShiftValidationFailedHandler.cs">Example</a>
+							<br />
+							<a target="_blank" href="http://git.dev.ahc/blue/soa-scheduling/blob/dev/src/Domain/Ahc.Blue.Rotas/Actuals/ActualShiftTimingComputationService.cs">Example</a>
+						</p>
 					</section>
 					
 				</section>
 
-
-                <!--      -->
-                <!-- CSRF -->
-                <!--      -->
-
-
+                <!-- OCP -->
                 <section>
-					
                     <section>
 						<h2>
-							<span class="sub-header">2.0 </span>
-							<span class="sub-header-separator"> | </span>
-							CSRF
+							&ldquo; O &rdquo;
+							<small class="fragment">
+								Open/Closed Principle
+							</small>
 						</h2>
 						
-						<blockquote>
-							&ldquo;Cross-Site Request Forgery (CSRF) is an attack that forces 
-                            an end user to execute unwanted actions on a web application in which 
-                            they're currently authenticated.&rdquo;
-							<br/>OWASP
+						<blockquote class="fragment">
+							&ldquo;Software entities (classes, modules, functions, etc.) should be
+							open for extension, but closed for modification&rdquo;
+							<br/>
+							<small>Bertrand Meyer</small>
 						</blockquote>
 					</section>
 					
-                    <section>
+					<section>
 						<h2>
-							<span class="sub-header">2.1 </span>
-							<span class="sub-header-separator"> | </span>
-							Demo
+							Open/Closed Principle
 						</h2>
 						
-						<p class="fragment slide-up">
-                            <a href="http://win-lots-of-money.com:62331/Jackpot" target="_blank">
-                                <img src="custom/csrf email.jpg" style="border: 0"></img>
-							</a>
+						<ol>
+							<li class="fragment">
+								Open for extension
+								<small>
+									This means that the behavior can be extended. That we can make 
+									it behave in new and different ways as the requirements of the 
+									application change, or to meet the needs of new applications.
+								</small>
+							</li>
+							<li class="fragment">
+								Closed for modification
+								<small>
+									The source code cannot be changed.
+								</small>
+							</li>
+						</ol>
+						
+						<p class="fragment">
+							Example - Drawing shapes
+							<br/>
+							<a target="_blank" href="http://git.dev.ahc/blue/soa-scheduling/blob/dev/src/Domain/Ahc.Blue.Rotas/RotaDiary/Resourcing/Assessment/IResourcingValidationRule.cs">Example</a>
 						</p>
 					</section>
-                    
-                     <section>
-						<h2>
-							<span class="sub-header">2.2 </span>
-							<span class="sub-header-separator"> | </span>
-							A Closer Look
-						</h2>
-						
-                        <pre style="font-size: 0.6em" ><code class="hljs" data-trim>
-...
-<h1>Thanks for your click!</h1>
-<p>But unfortunately, you haven't actually won anything.</p>
-
-<form action="http://unnamed-bookstore.com:62331/Home/Review" 
-  method="POST">
-    <input type="hidden" name="review" 
-    
-    
-value="I THOUGHT I HAD WON THE JACKPOT, BUT I WAS WRONG! :(">
-</form>
-
-<script>
-    window.onload = function () {
-        document.forms[0].submit();
-    }
-</script>
-                        </code></pre>
-						
-					</section>
-                    
+				</section>
+				
+				<!-- LSP -->
+                <section>
                     <section>
 						<h2>
-							<span class="sub-header">2.3.1 </span>
-							<span class="sub-header-separator"> | </span>
-							Prevention
+							&ldquo; L &rdquo;
+							<small class="fragment">
+								Liskov Substitution Principle
+							</small>
 						</h2>
-
-                        <h3>Things that <strong style="text-decoration:underline">DON'T</strong> work</h3>
 						
-						<ol>
-							<li class="fragment">
-                                Using a secret cookie
-                                <small>
-                                    As the request is from the victim's browser, all cookies will be sent with the request. This is how the
-                                    attack works in the first place - by tricking the browser into making the request with the 
-                                    authentication/session token.
-                                </small>
-							</li>
-                            <li class="fragment">
-                                Only accepting POST/PUT requests
-                                <small>
-                                    As we've seen - this does not stop a CSRF attack. JavaScript and forms can be used to make all
-                                    types of requests to the server.
-                                </small>
-							</li>
-                            <li class="fragment">
-                                Multi-step transactions
-                                <small>
-                                    This can be deduced by an attacker, so it does not prevent against CSRF.
-                                </small>
-							</li>
-						</ol>
+						<blockquote class="fragment hide-after">
+							If <strong>S</strong> is a subtype of <strong>T</strong>, then objects of 
+							type <strong>T</strong> may be replaced with objects of type <strong>S</strong> 
+							without altering any of the desirable properties of that program.
+						</blockquote>
+						
+						<blockquote class="fragment">
+							Basically, it should be possible to use a subtype of a class, and there should be no
+							unexpected behaviour.							
+						</blockquote>
 					</section>
-                    
+					
+					<section>
+						<h2>
+							Liskov Substitution Principle
+						</h2>
+						
+						<p>Imposes the following:</p>
+						
+						<ul>
+							<li class="fragment">
+								<strong>Contravariance</strong> of method arguments in the subtype
+							</li>
+							<li class="fragment">
+								<strong>Covariance</strong> of return types in the subtype
+							</li>
+							<li class="fragment">
+								Subtype shouldn't throw any new exceptions
+								<small>except where those exceptions are themselves subtypes of exceptions
+								thrown by the supertype</small>
+							</li>
+							<li class="fragment">
+								<strong>Preconditions</strong> cannot be strengthened in a subtype.
+							</li>
+							<li class="fragment">
+								<strong>Postconditions</strong> cannot be weakened in a subtype
+							</li>
+							<li class="fragment">
+								<strong>Invariants</strong> of the supertype must be preserved in a subtype
+							</li>
+						</ul>
+					</section>
+										
+					<section>
+						<h2>
+							Liskov Substitution Principle
+						</h2>
+						
+						<p>
+							<a target="_blank" href="http://git.dev.ahc/blue/library-serviceinterface/blob/dev/src/Ahc.Blue.ServiceInterface.Pipeline/Decorators/Profiling/ProfiledRequestHandler.cs">Example</a>
+						</p>
+					</section>
+				</section>
+				
+				<!-- ISP -->
+                <section>
                     <section>
 						<h2>
-							<span class="sub-header">2.3.2 </span>
-							<span class="sub-header-separator"> | </span>
-							Prevention
+							&ldquo; I &rdquo;
+							<small class="fragment">
+								Interface Segregation Principle
+							</small>
 						</h2>
-
-                        <h3>Use the &ldquo;Synchronizer Token Pattern&rdquo;</h3>
 						
-						<ol>
-							<li class="fragment">
-                                The server generates a secure random token (CSRF token) which is:
-                                <ul>
-                                    <li>Unique per user & per user session</li>
-                                    <li>A large random value</li>
-                                    <li>Generated by a cryptographically secure random number generator</li>
-                                </ul>
-							</li>
-                            <li class="fragment">
-                                This CSRF token is included as a hidden field for all forms
-							</li>
-                            <li class="fragment">
-                                The server can then reject the requested action if the CSRF token fails validation
-							</li>
-						</ol>
-					</section>
-                    
-                    <section>
-						<h2>
-							<span class="sub-header">2.3.3 </span>
-							<span class="sub-header-separator"> | </span>
-							Prevention
-						</h2>
-
-                        <h3>Variants</h3>
+						<blockquote class="fragment">
+							No client should be forced to depend on methods it does not use
+						</blockquote>
 						
-						<ol>
-							<li class="fragment">
-                                Double Submit Cookies
-							</li>
-                            <li class="fragment">
-                                Encrypted Token Pattern
-							</li>
-						</ol>
-                        
-                        <div class="fragment" style="font-size: 0.75em; text-align: left;">
-							<span>Useful links</span>
+						<p class="fragment">
+							<a target="_blank" href="http://git.dev.ahc/blue/soa-scheduling/blob/dev/src/Application/Ahc.Blue.Coordination.Application/Settings/IReadOrganisationSettingsService.cs">Example A</a>
 							<br />
-							<a href="https://www.owasp.org/index.php/CSRF_Prevention_Cheat_Sheet" target="_blank">OWASP CSRF prevention cheat sheet</a>
-						</div>
+							<a target="_blank" href="http://git.dev.ahc/blue/soa-scheduling/blob/dev/src/Application/Ahc.Blue.Coordination.Application/Settings/IWriteOrganisationSettingsService.cs">Example B</a>
+							
+							<!-- xerox, printjob, staplejob etc -->
+						</p>
 					</section>
-					                    
+				</section>
+				
+				<!-- DIP -->
+                <section>
+                    <section>
+						<h2>
+							&ldquo; D &rdquo;
+							<small class="fragment">
+								Dependency Inversion Principle
+							</small>
+						</h2>
+						
+						<blockquote class="fragment">
+							&ldquo;Depend upon abstractions. Do not depend upon concretions&rdquo;
+							<small>Robert C. Martin</small>
+						</blockquote>
+						
+					</section>
 				</section>
 
 				<section style="text-align: left;">
@@ -448,7 +416,7 @@ value="I THOUGHT I HAD WON THE JACKPOT, BUT I WAS WRONG! :(">
 				center: true,
 
 				transition: 'slide', // none/fade/slide/convex/concave/zoom
-
+				//backgroundTransition: 'slide',
 				parallaxBackgroundImage: 'custom/bg.jpg',
 
 	// Parallax background size
@@ -456,8 +424,8 @@ value="I THOUGHT I HAD WON THE JACKPOT, BUT I WAS WRONG! :(">
 
 	// Amount to move parallax background (horizontal and vertical) on slide change
 	// Number, e.g. 100
-	parallaxBackgroundHorizontal: '5',
-	parallaxBackgroundVertical: '4',
+	parallaxBackgroundHorizontal: 50,
+	parallaxBackgroundVertical: 10,
 				
 				// Optional reveal.js plugins
 				dependencies: [
